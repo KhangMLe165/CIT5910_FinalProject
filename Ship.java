@@ -15,4 +15,28 @@ public abstract class Ship {
         this.hit = new boolean[length]; //Initializes the hit array with false values, indicating no parts of the ship have been hit.
     }
 
+    // Getters and setters
+    public int getLength() {
+        return length;
+    }
+
+    public int getBowRow() {
+        return bowRow;
+    }
+
+    public void setBowRow(int bowRow) {
+        this.bowRow = bowRow;
+    }
+
+    public int getBowColumn() {
+        return bowColumn;
+    }
+
+    public void setBowColumn(int bowColumn) {
+        this.bowColumn = bowColumn;
+    }
+
+    public boolean isHorizontal() {
+        return horizontal;
+    }
 
