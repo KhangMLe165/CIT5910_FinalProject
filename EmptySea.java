@@ -45,7 +45,7 @@ public class EmptySea extends Ship {
      */
     @Override
     public String toString() {
-        // The representation is simple and does not require additional logic.
+        /* Represents the tile as "-" in the ocean grid when displayed.*/
         return "-";
     }
 
