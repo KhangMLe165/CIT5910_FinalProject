@@ -1,92 +1,89 @@
-
 public interface OceanInterface {
 
     /**
-     * Place all ten ships randomly on the (initially empty) ocean. Larger ships
-     * must be placed before smaller ones to avoid cases where it may be impossible
-     * to place the larger ships.
+     * Places all ten ships randomly on the (initially empty) ocean.
+     * Larger ships are placed before smaller ones to avoid placement issues.
+     * This method ensures valid positions for all ships, preventing overlaps
+     * and adjacency violations.
      *
-     * @see java.util.Random
+     * Uses java.util.Random for random ship placement.
      */
     public void placeAllShipsRandomly();
 
     /**
-     * Checks if this coordinate is not empty; that is, if this coordinate does not
-     * contain an EmptySea reference.
+     * Checks if a specific coordinate on the ocean grid is occupied by a ship.
      *
-     * @param row    the row (0 to 9) in which to check for a floating ship
-     * @param column the column (0 to 9) in which to check for a floating ship
-     * @return {@literal true} if the given location contains a ship, and
-     *         {@literal false} otherwise.
+     * @param row the row index (0 to 9) to check.
+     * @param column the column index (0 to 9) to check.
+     * @return true if the specified location contains a ship, false otherwise.
      */
     public boolean isOccupied(int row, int column);
 
     /**
-     * Fires a shot at this coordinate. This will update the number of shots that
-     * have been fired (and potentially the number of hits, as well). If a location
-     * contains a real, not sunk ship, this method should return {@literal true}
-     * every time the user shoots at that location. If the ship has been sunk,
-     * additional shots at this location should return {@literal false}.
+     * Fires a shot at the specified coordinate.
+     * Updates the number of shots fired and, if applicable, the number of hits.
+     * A valid hit on a ship (not already sunk) returns true, while subsequent
+     * shots at the same location or misses return false.
      *
-     * @param row    the row (0 to 9) in which to shoot
-     * @param column the column (0 to 9) in which to shoot
-     * @return {@literal true} if the given location contains an afloat ship (not an
-     *         EmptySea), {@literal false} if it does not.
+     * @param row the row index (0 to 9) to shoot.
+     * @param column the column index (0 to 9) to shoot.
+     * @return true if the shot hits an afloat ship, false otherwise.
      */
     public boolean shootAt(int row, int column);
 
     /**
-     * @return the number of shots fired in this game.
+     * Retrieves the total number of shots fired in the game so far.
+     *
+     * @return the number of shots fired.
      */
     public int getShotsFired();
 
     /**
-     * @return the number of hits recorded in this game.
+     * Retrieves the total number of successful hits recorded in the game so far.
+     * A hit is recorded even if the same location is hit multiple times.
+     *
+     * @return the number of hits recorded.
      */
     public int getHitCount();
 
     /**
-     * @return the number of ships sunk in this game.
+     * Retrieves the number of ships that have been sunk in the game so far.
+     *
+     * @return the number of ships sunk.
      */
     public int getShipsSunk();
 
     /**
-     * @return {@literal true} if all ships have been sunk, otherwise
-     *         {@literal false}.
+     * Determines if the game is over.
+     * The game ends when all ships have been sunk.
+     *
+     * @return true if all ships are sunk, false otherwise.
      */
     public boolean isGameOver();
 
     /**
-     * Provides access to the grid of ships in this Ocean. The methods in the Ship
-     * class that take an Ocean parameter must be able to read and even modify the
-     * contents of this array. While it is generally undesirable to allow methods in
-     * one class to directly access instancce variables in another class, in this
-     * case there is no clear and elegant alternatives.
+     * Provides access to the 10x10 grid of ships in the ocean.
+     * The grid is used for ship placement, checks, and interactions.
      *
-     * @return the 10x10 array of ships.
+     * While direct access to instance variables is generally avoided, this method
+     * is necessary for proper interaction between the Ship and Ocean classes.
+     *
+     * @return a 10x10 array of Ship objects representing the ocean.
      */
     public Ship[][] getShipArray();
 
     /**
-     * Prints the ocean. To aid the user, row numbers should be displayed along the
-     * left edge of the array, and column numbers should be displayed along the top.
-     * Numbers should be 0 to 9, not 1 to 10. The top left corner square should be
-     * 0, 0.
-     * <ul>
-     * <li>Use 'S' to indicate a location that you have fired upon and hit a (real)
-     * ship</li>
-     * <li>'-' to indicate a location that you have fired upon and found nothing
-     * there</li>
-     * <li>'x' to indicate a location containing a sunken ship</li>
-     * <li>'.' (a period) to indicate a location that you have never fired
-     * upon.</li>
-     * </ul>
+     * Prints the ocean grid to the console.
      *
-     * This is the only method in Ocean that has any printing capability, and it
-     * should never be called from within the Ocean class except for the purposes of
-     * debugging.
+     * Displays row numbers along the left edge and column numbers across the top.
+     * Grid symbols:
+     * - 'S': A hit ship segment.
+     * - '-': A location fired upon but found empty.
+     * - 'x': A location containing a sunken ship.
+     * - '.': A location not yet fired upon.
      *
+     * This method is for debugging and user display purposes only. It should not
+     * be called within the Ocean class except for debugging.
      */
     public void print();
-
 }
