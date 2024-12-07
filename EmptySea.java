@@ -22,7 +22,8 @@ public class EmptySea extends Ship {
      */
     @Override
     public boolean shootAt(int row, int column) {
-        return false; // Shooting at an EmptySea always misses.
+        // The behavior is pre-defined as no hits are possible.
+        return false;
     }
 
     /**
@@ -33,7 +34,8 @@ public class EmptySea extends Ship {
      */
     @Override
     public boolean isSunk() {
-        return false; // EmptySea cannot be sunk.
+        // The behavior is pre-defined; EmptySea cannot be sunk.
+        return false;
     }
 
     /**
@@ -43,7 +45,8 @@ public class EmptySea extends Ship {
      */
     @Override
     public String toString() {
-        return "-"; // Represents EmptySea when it is part of the ocean grid.
+        // The representation is simple and does not require additional logic.
+        return "-";
     }
 
     /**
@@ -53,6 +56,7 @@ public class EmptySea extends Ship {
      */
     @Override
     public String getShipType() {
-        return "empty"; // Identifies this class as representing an empty sea.
+        // Returns the type for consistency in the ship hierarchy.
+        return "empty";
     }
 }
