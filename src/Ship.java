@@ -124,6 +124,13 @@ public abstract class Ship {
     public boolean shootAt(int row, int column) {
         if (this.isSunk()) return false; // No effect if the ship is already sunk
 
+        // Check if the shot is within the ship's bounds
+        if (horizontal) {
+            if (row != this.getBowRow()) return false; // Must be in the same row
+        } else {
+            if (column != this.getBowColumn()) return false; // Must be in the same column
+        }
+
         // Calculate which segment of the ship is being hit
         int index = horizontal ? column - this.getBowColumn() : row - this.getBowRow();
         if (index >= 0 && index < this.getLength()) {
