@@ -5,10 +5,17 @@ import java.util.Scanner;
  * Manages the game loop, user input, and game state updates.
  */
 public class BattleshipGame {
+    private Ocean ocean; //  Create instance variable of type Ocean
+    private boolean[][] shotsFired; // Track fired positions
 
+    public BattleshipGame(){
+        this.ocean = new Ocean();
+        this.shotsFired = new boolean[10][10];
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Scanner for user input
-        Ocean ocean = new Ocean();               // Create a new Ocean instance
+        BattleshipGame game = new BattleshipGame(); // Create an instance of the game
+        Ocean ocean = game.ocean;
 
         System.out.println("Welcome to Battleship!");
         ocean.placeAllShipsRandomly();           // Randomly place all ships in the ocean
@@ -23,12 +30,22 @@ public class BattleshipGame {
             System.out.println("Ships sunk: " + ocean.getShipsSunk());
 
             // Get row input from the user
-            System.out.print("Please select the row for your shot: ");
-            int row = getValidInput(scanner);
+            int row, column;
+            while(true) {
+                System.out.print("Please select the row for your shot: ");
+                row = getValidInput(scanner);
 
-            // Get column input from the user
-            System.out.print("Please select the column for your shot: ");
-            int column = getValidInput(scanner);
+                // Get column input from the user
+                System.out.print("Please select the column for your shot: ");
+                column = getValidInput(scanner);
+
+                if (!game.shotsFired[row][column]) {
+                    game.shotsFired[row][column] = true;
+                    break;
+                } else {
+                    System.out.println("You have already fired at this position! Try again.");
+                }
+            }
 
             // Shoot at the specified location and display the result
             boolean hit = ocean.shootAt(row, column);
