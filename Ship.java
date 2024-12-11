@@ -63,25 +63,41 @@ public abstract class Ship {
     public abstract String getShipType();
 
     /**
-     * Determines if the ship can be placed at the given location in the ocean.
+     * Determines whether it is valid to place the ship at the specified position in the ocean.
+     * Ensures there is at least one space between this ship and any other ship.
+     *
+     * @param row        the row index for the bow of the ship.
+     * @param column     the column index for the bow of the ship.
+     * @param horizontal whether the ship is horizontal or vertical.
+     * @param ocean      the Ocean object representing the game state.
+     * @return true if the ship can be placed at the specified position, false otherwise.
      */
     public boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean) {
         // Check if the ship would extend beyond the ocean's boundaries
         if (horizontal) {
-            if (column + this.getLength() > 10) return false; // Horizontal boundary check
+            if (column + this.getLength() > 10) return false;
         } else {
-            if (row + this.getLength() > 10) return false;    // Vertical boundary check
+            if (row + this.getLength() > 10) return false;
         }
 
-        // Check surrounding cells to avoid overlaps or adjacency with other ships
-        for (int r = row - 1; r <= row + (horizontal ? 0 : this.getLength()); r++) {
-            for (int c = column - 1; c <= column + (horizontal ? this.getLength() : 0); c++) {
-                if (r >= 0 && r < 10 && c >= 0 && c < 10 && ocean.isOccupied(r, c)) {
-                    return false; // Invalid if a ship occupies any neighboring cell
+        // Check surrounding area including diagonals
+        // Start checking one row above to one row below the ship
+        int startRow = Math.max(0, row - 1);
+        int endRow = Math.min(9, row + (horizontal ? 1 : this.getLength()));
+
+        // Start checking one column before to one column after the ship
+        int startCol = Math.max(0, column - 1);
+        int endCol = Math.min(9, column + (horizontal ? this.getLength() : 1));
+
+        // Check each position in the surrounding area
+        for (int r = startRow; r <= endRow; r++) {
+            for (int c = startCol; c <= endCol; c++) {
+                if (ocean.isOccupied(r, c)) {
+                    return false; // Return false if any adjacent cell (including diagonals) is occupied
                 }
             }
         }
-        return true; // Placement is valid if no issues found
+        return true;
     }
 
     /**

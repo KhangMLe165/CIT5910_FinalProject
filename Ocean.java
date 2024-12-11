@@ -141,7 +141,7 @@ public class Ocean implements OceanInterface {
     }
 
     /**
-     * Prints the current state of the ocean grid.
+     * Prints the current state of the ocean grid with proper spacing.
      * Uses symbols to represent hits, misses, sunk ships, and unexplored locations:
      * - 'S': A hit ship segment.
      * - '-': A location fired upon but found empty.
@@ -150,22 +150,44 @@ public class Ocean implements OceanInterface {
      */
     @Override
     public void print() {
-        System.out.println("  0123456789"); // Print column numbers.
+        // Print column numbers with extra spacing
+        System.out.println("\n    0  1  2  3  4  5  6  7  8  9");
+        System.out.println("   --------------------------------");
+
         for (int row = 0; row < 10; row++) {
-            System.out.print(row + " "); // Print row number.
+            System.out.print(row + " | "); // Print row number with separator and space
+
             for (int column = 0; column < 10; column++) {
                 Ship ship = ships[row][column];
-                if (ship instanceof EmptySea) {
-                    System.out.print("."); // Unexplored EmptySea.
-                } else if (ship.isSunk()) {
-                    System.out.print("x"); // Sunk ship.
-                } else if (ship.shootAt(row, column)) {
-                    System.out.print("S"); // Hit ship segment.
+
+                if (ship.isSunk()) {
+                    System.out.print("x  "); // Show sunk ship with extra space
+                } else if (ship instanceof EmptySea) {
+                    // Handle EmptySea separately to fix the row 0 issue
+                    if (ship.hit[0]) {
+                        System.out.print("-  "); // Show miss with extra space
+                    } else {
+                        System.out.print(".  "); // Show unexplored with extra space
+                    }
                 } else {
-                    System.out.print("."); // Unexplored location.
+                    // Get the hit location for this ship segment
+                    int index;
+                    if (ship.isHorizontal()) {
+                        index = column - ship.getBowColumn();
+                    } else {
+                        index = row - ship.getBowRow();
+                    }
+
+                    // Check if this segment has been hit
+                    if (index >= 0 && index < ship.getLength() && ship.hit[index]) {
+                        System.out.print("S  "); // Show hit with extra space
+                    } else {
+                        System.out.print(".  "); // Show unexplored with extra space
+                    }
                 }
             }
-            System.out.println(); // Move to the next row.
+            System.out.println("|"); // End of row
         }
+        System.out.println("   --------------------------------");
     }
 }
