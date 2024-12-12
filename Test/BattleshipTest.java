@@ -34,8 +34,7 @@ class BattleshipTest {
         Battleship battleship = new Battleship();
 
         // Check that it is an instance of the Ship class
-        assertTrue(battleship instanceof Ship,
-                "Battleship should be an instance of Ship");
+        assertInstanceOf(Ship.class, battleship, "Battleship should be an instance of Ship");
     }
 
     /* Test multiple Battleship instances to ensure:
