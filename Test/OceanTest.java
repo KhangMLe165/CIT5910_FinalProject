@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,8 +15,7 @@ class OceanTest {
         // Ensure all cells are initialized as EmptySea
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                assertTrue(ocean.getShipArray()[i][j] instanceof EmptySea,
-                        "All positions should initially be EmptySea.");
+                assertInstanceOf(EmptySea.class, ocean.getShipArray()[i][j], "All positions should initially be EmptySea.");
             }
         }
 
