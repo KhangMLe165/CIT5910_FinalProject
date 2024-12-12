@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for the Ship class.
  */
-public class ShipTest {
+class ShipTest {
 
     private Ship testShip;
 

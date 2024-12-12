@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for the Destroyer class.
  */
-public class DestroyerTest {
+class DestroyerTest {
 
     private Destroyer destroyer;
 

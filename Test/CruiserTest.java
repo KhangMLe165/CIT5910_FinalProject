@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for the Cruiser class.
  */
-public class CruiserTest {
+class CruiserTest {
 
     private Cruiser cruiser;
 

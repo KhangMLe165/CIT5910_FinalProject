@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for the EmptySea class.
  */
-public class EmptySeaTest {
+class EmptySeaTest {
 
     private EmptySea emptySea;
 
